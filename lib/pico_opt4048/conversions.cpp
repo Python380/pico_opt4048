@@ -44,17 +44,17 @@ color_xyz rawToXYZ(opt4048_data channels) { // , OPT4048_CONFIGURATION config
 
     // Matrix multiplication from TI datasheet
     // TODO SHOULD SIMPLIFY; NO REASON TO CALCULATE LUX AT SAME TIME
-    double x = ch0 * m[0][0] + ch1 * m[1][0] + ch2 * m[2][0] + ch3 * m[3][0];
-    double y = ch0 * m[0][1] + ch1 * m[1][1] + ch2 * m[2][1] + ch3 * m[3][1];
-    double z = ch0 * m[0][2] + ch1 * m[1][2] + ch2 * m[2][2] + ch3 * m[3][2];
+    color.X = ch0 * m[0][0] + ch1 * m[1][0] + ch2 * m[2][0] + ch3 * m[3][0];
+    color.Y = ch0 * m[0][1] + ch1 * m[1][1] + ch2 * m[2][1] + ch3 * m[3][1];
+    color.Z = ch0 * m[0][2] + ch1 * m[1][2] + ch2 * m[2][2] + ch3 * m[3][2];
     color.l = ch0 * m[0][3] + ch1 * m[1][3] + ch2 * m[2][3] + ch3 * m[3][3];
 
     // TODO convert all channels to real lux and not value lux
 
-    // Normalization
-    color.x = x / (x + y + z);
-    color.y = y / (x + y + z);
-    color.z = z / (x + y + z);
+    // Normalization for xyz from XYZ
+    color.x = color.X / (color.X + color.Y + color.Z);
+    color.y = color.Y / (color.X + color.Y + color.Z);
+    color.z = color.Z / (color.X + color.Y + color.Z);
 
     return color;
 }
@@ -81,4 +81,9 @@ color_lab xyzToLAB(color_xyz input_color) {
     //
 
     return color;
+}
+
+double xyzToCCT(color_xyz xyz) {
+    double n = (xyz.x - 0.3320) / (0.1858 - xyz.y);
+    return (437 * pow(n, 3)) + (3601 * pow(n, 2)) + (6861 * n) + 5517;
 }

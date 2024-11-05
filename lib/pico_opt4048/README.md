@@ -8,6 +8,7 @@
     - `set*(___)` - sets the specified configuration field to the specified value. See TI datasheet linked below.
 - `color_xyz rawToXYZ(opt4048_data)` - takes raw data returned from `OPT4048::read()` and converts it to CIE XYZ. This data is the input for all other conversion functions.
 - `color_rgb xyzToRGB(color_xyz)` - Converts XYZ color to RGB color.
+- `double xyzToCCT(color_xyz)` - Calculates correlated color temperature
 
 ### Texas Instruments - "OPT4048 High Speed High Precision Tristimulus XYZ Color Sensor"
 https://www.ti.com/lit/gpn/OPT4048
