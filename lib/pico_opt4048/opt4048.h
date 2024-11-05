@@ -148,7 +148,8 @@ struct {
     double b;
 } typedef color_lab;
 
-
+double min(double, double);
+double max(double, double);
 color_xyz rawToXYZ(opt4048_data);
 color_rgb xyzToRGB(color_xyz);
 color_lab xyzToLAB(color_xyz);

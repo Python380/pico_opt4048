@@ -63,6 +63,7 @@ opt4048_data OPT4048::read() {
     channels.ch2 = unpackChannel(ch2);
     channels.ch3 = unpackChannel(ch3);
 
+#ifdef DEBUG
     printf("ALL: 0x%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X\n", channel_data[0], channel_data[1], channel_data[2], channel_data[3], channel_data[4], channel_data[5], channel_data[6], channel_data[7], channel_data[8], channel_data[9], channel_data[10], channel_data[11], channel_data[12], channel_data[13], channel_data[14], channel_data[15]);
     printf("CH0 exp: %d\tresult: %d\tcounter: %d\tcrc: %d\n", channels.ch0.exponent, channels.ch0.result, channels.ch0.counter, channels.ch0.crc);
     printf("CH1 exp: %d\tresult: %d\tcounter: %d\tcrc: %d\n", channels.ch1.exponent, channels.ch1.result, channels.ch1.counter, channels.ch1.crc);
@@ -70,6 +71,7 @@ opt4048_data OPT4048::read() {
     printf("CH3 exp: %d\tresult: %d\tcounter: %d\tcrc: %d\n", channels.ch3.exponent, channels.ch3.result, channels.ch3.counter, channels.ch3.crc);
 
     printf("\n");
+#endif
 
     return channels;
 }
@@ -77,20 +79,24 @@ opt4048_data OPT4048::read() {
 color_xyz OPT4048::readInXYZ() {
     color_xyz color = rawToXYZ(read());
 
+#ifdef DEBUG
     printf("[%02.3f, %02.3f, %02.3f, %02.3f]\n\n", color.x, color.y, color.z, color.l);
-    
+#endif
+
     return color;
 }
 
 color_rgb OPT4048::readInRGB() {
     color_rgb rgb = xyzToRGB(readInXYZ());
 
+#ifdef DEBUG
     printf("[%02.3f, %02.3f, %02.3f]\t", rgb.r, rgb.g, rgb.b);
 
     printf("#%02X%02X%02X\n\n",
         (int) max(0, min(255, (rgb.r * 255))),
         (int) max(0, min(255, (rgb.g * 255))),
         (int) max(0, min(255, (rgb.b * 255))));
+#endif
 
     return rgb;
 }
@@ -100,6 +106,7 @@ void OPT4048::readConfig() {
     uint16_t low = readFrom(OPT4048_REG_CFG + 1);
     config = unpackConfig((high << 16) | low);
 
+#ifdef DEBUG
     printf("OPT4048: read config:\n");
     printf("QWAKE:\t\t%s\n", config.QWAKE ? "true" : "false");
     printf("RANGE:\t\t0x%x\n", config.RANGE);
@@ -112,6 +119,7 @@ void OPT4048::readConfig() {
     printf("INT_CFG:\t%x\n", config.INT_CFG);
     printf("I2C_BURST:\t%s\n", config.I2C_BURST ? "Enabled": "Disabled");
     printf("THRES_CH:\t%x\n\n", config.THRESHOLD_CH_SEL);
+#endif
 }
 
 void OPT4048::writeConfig() {

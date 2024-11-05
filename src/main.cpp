@@ -18,6 +18,24 @@ const uint16_t OPT4048_INT_PIN  = 6;
 // basic configuration
 const uint32_t I2C_FREQ         = 400000; // 400 Khz
 
+
+void printData(opt4048_data data) {
+    color_xyz xyz = rawToXYZ(data);
+    color_rgb rgb = xyzToRGB(xyz);
+
+    printf("CH0 exp: %d\tresult: %d\tcounter: %d\tcrc: %d\n", data.ch0.exponent, data.ch0.result, data.ch0.counter, data.ch0.crc);
+    printf("CH1 exp: %d\tresult: %d\tcounter: %d\tcrc: %d\n", data.ch1.exponent, data.ch1.result, data.ch1.counter, data.ch1.crc);
+    printf("CH2 exp: %d\tresult: %d\tcounter: %d\tcrc: %d\n", data.ch2.exponent, data.ch2.result, data.ch2.counter, data.ch2.crc);
+    printf("CH3 exp: %d\tresult: %d\tcounter: %d\tcrc: %d\n", data.ch3.exponent, data.ch3.result, data.ch3.counter, data.ch3.crc);
+    printf("\n");
+    printf("CIExyz:\tx: %02.3f\ty: %02.3f\tz: %02.3f\tlux: %02.3f\n", xyz.x, xyz.y, xyz.z, xyz.l);
+    printf("sRGB:\tr: %02.3f\tg: %02.3f\tb: %02.3f\n", rgb.r, rgb.g, rgb.b);
+    printf("sRGB hex code: #%02X%02X%02X\n\n",
+        (int) max(0, min(255, (rgb.r * 255))),
+        (int) max(0, min(255, (rgb.g * 255))),
+        (int) max(0, min(255, (rgb.b * 255))));
+}
+
 // main function - initialization & control loop
 int main() {
     // initialize
@@ -54,7 +72,8 @@ int main() {
             gpio_put(LED_PIN, led_state);
 
             // read OPT4048
-            color_sensor.readInRGB();
+            opt4048_data data = color_sensor.read();
+            printData(data);
 
             // tick
             seconds_last_tick = timer;
