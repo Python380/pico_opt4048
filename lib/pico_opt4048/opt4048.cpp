@@ -43,8 +43,7 @@ OPT4048::OPT4048(i2c_inst_t* port, uint8_t address) {
     }
 
     readConfig();
-    config.OPERATING_MODE = CONTINUOUS;
-    writeConfig();
+    setOperatingMode(CONTINUOUS);
     readConfig();
 }
 
@@ -201,4 +200,54 @@ OPT4048_CH_MAP OPT4048::unpackChannel(uint32_t data) {
     channel.crc = low & 0xF;
 
     return channel;
+}
+
+void OPT4048::setRange(opt4048_range range) {
+    config.RANGE = range;
+    writeConfig();
+}
+
+void OPT4048::setConversionTime(opt4048_conv_time ctime) {
+    config.CONVERSION_TIME = ctime;
+    writeConfig();
+}
+
+void OPT4048::setFaultCount(opt4048_fault_count fault_c) {
+    config.FAULT_COUNT = fault_c;
+    writeConfig();
+}
+
+void OPT4048::setIntConfig(opt4048_int_cfg cfg) {
+    config.INT_CFG = cfg;
+    writeConfig();
+}
+
+void OPT4048::setIntDirection(bool dir) {
+    config.INT_DIR = dir;
+    writeConfig();
+}
+
+void OPT4048::setIntPolarity(bool polarity) {
+    config.INT_POL = polarity;
+    writeConfig();
+}
+
+void OPT4048::setLatch(bool latch) {
+    config.LATCH = latch;
+    writeConfig();
+}
+
+void OPT4048::setOperatingMode(opt4048_operating_mode opmode) {
+    config.OPERATING_MODE = opmode;
+    writeConfig();
+}
+
+void OPT4048::setQuickWake(bool qwake) {
+    config.QWAKE = qwake;
+    writeConfig();
+}
+
+void OPT4048::setThresholdChannel(opt4048_threshold_ch ch) {
+    config.THRESHOLD_CH_SEL = ch;
+    writeConfig();
 }

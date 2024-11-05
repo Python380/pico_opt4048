@@ -168,7 +168,7 @@ public:
     void setOperatingMode(opt4048_operating_mode);
     void setThresholdChannel(opt4048_threshold_ch);
     void setFaultCount(opt4048_fault_count);
-    void setQuickWake(int);
+    void setQuickWake(bool);
     
     // interrupts
     void setIntConfig(opt4048_int_cfg);
