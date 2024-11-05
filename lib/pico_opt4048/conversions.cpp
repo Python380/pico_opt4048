@@ -75,14 +75,6 @@ color_rgb xyzToRGB(color_xyz input_color) {
     return color;
 }
 
-color_lab xyzToLAB(color_xyz input_color) {
-    color_lab color;
-
-    //
-
-    return color;
-}
-
 double xyzToCCT(color_xyz xyz) {
     double n = (xyz.x - 0.3320) / (0.1858 - xyz.y);
     return (437 * pow(n, 3)) + (3601 * pow(n, 2)) + (6861 * n) + 5517;
