@@ -130,6 +130,9 @@ struct {
 } typedef opt4048_data;
 
 struct {
+    double X;
+    double Y;
+    double Z;
     double x;
     double y;
     double z;
@@ -152,7 +155,7 @@ double min(double, double);
 double max(double, double);
 color_xyz rawToXYZ(opt4048_data);
 color_rgb xyzToRGB(color_xyz);
-color_lab xyzToLAB(color_xyz);
+double xyzToCCT(color_xyz);
 
 class OPT4048 {
 public:
@@ -161,7 +164,6 @@ public:
     opt4048_data read();
     color_xyz readInXYZ();
     color_rgb readInRGB();
-    color_lab readInLAB();
 
     // standard config
     void setRange(opt4048_range);
