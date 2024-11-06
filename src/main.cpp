@@ -28,7 +28,7 @@ void printData(opt4048_data data) {
     printf("CH2 exp: %d\tresult: %d\tcounter: %d\tcrc: %d\n", data.ch2.exponent, data.ch2.result, data.ch2.counter, data.ch2.crc);
     printf("CH3 exp: %d\tresult: %d\tcounter: %d\tcrc: %d\n", data.ch3.exponent, data.ch3.result, data.ch3.counter, data.ch3.crc);
     printf("\n");
-    printf("CIExyz:\tx: %02.3f\ty: %02.3f\tz: %02.3f\tlux: %02.3f\n", xyz.x, xyz.y, xyz.z, xyz.l);
+    printf("CIE xyz:\tx: %02.3f\ty: %02.3f\tz: %02.3f\tlux: %02.3f\n", xyz.x, xyz.y, xyz.z, xyz.l);
     printf("sRGB:\tr: %02.3f\tg: %02.3f\tb: %02.3f\n", rgb.r, rgb.g, rgb.b);
     printf("sRGB hex code: #%02X%02X%02X\n",
         (int) max(0, min(255, (rgb.r * 255))),

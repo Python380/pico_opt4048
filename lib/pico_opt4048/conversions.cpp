@@ -49,8 +49,6 @@ color_xyz rawToXYZ(opt4048_data channels) { // , OPT4048_CONFIGURATION config
     color.Z = ch0 * m[0][2] + ch1 * m[1][2] + ch2 * m[2][2] + ch3 * m[3][2];
     color.l = ch0 * m[0][3] + ch1 * m[1][3] + ch2 * m[2][3] + ch3 * m[3][3];
 
-    // TODO convert all channels to real lux and not value lux
-
     // Normalization for xyz from XYZ
     color.x = color.X / (color.X + color.Y + color.Z);
     color.y = color.Y / (color.X + color.Y + color.Z);
