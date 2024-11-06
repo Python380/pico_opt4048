@@ -29,12 +29,17 @@ void printData(opt4048_data data) {
     printf("CH3 exp: %d\tresult: %d\tcounter: %d\tcrc: %d\n", data.ch3.exponent, data.ch3.result, data.ch3.counter, data.ch3.crc);
     printf("\n");
     printf("CIE xyz:\tx: %02.3f\ty: %02.3f\tz: %02.3f\tlux: %02.3f\n", xyz.x, xyz.y, xyz.z, xyz.l);
-    printf("sRGB:\tr: %02.3f\tg: %02.3f\tb: %02.3f\n", rgb.r, rgb.g, rgb.b);
-    printf("sRGB hex code: #%02X%02X%02X\n",
+    printf("lRGB:\t\tr: %02.3f\tg: %02.3f\tb: %02.3f\n", rgb.rl, rgb.gl, rgb.bl);
+    printf("sRGB:\t\tr: %02.3f\tg: %02.3f\tb: %02.3f\n", rgb.r, rgb.g, rgb.b);
+    printf("lRGB hex code:\t#%02X%02X%02X\n",
+        (int) max(0, min(255, (rgb.rl * 255))),
+        (int) max(0, min(255, (rgb.gl * 255))),
+        (int) max(0, min(255, (rgb.bl * 255))));
+    printf("sRGB hex code:\t#%02X%02X%02X\n",
         (int) max(0, min(255, (rgb.r * 255))),
         (int) max(0, min(255, (rgb.g * 255))),
         (int) max(0, min(255, (rgb.b * 255))));
-    printf("CCT:\t%f\n\n", xyzToCCT(xyz));
+    printf("CCT:\t\t%f\n\n", xyzToCCT(xyz));
 }
 
 // main function - initialization & control loop

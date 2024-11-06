@@ -25,11 +25,11 @@ double max(double a, double b, double c) {
 }
 
 // converts a single channel of RGB to a channel of sRGB
-double linearRGBToSRGB(double channel) {
+double linearRGBToSRGB(double channel, double gamma) {
     if (channel <= 0.0031308) {
         return 12.92 * channel;
     } else {
-        return 1.055 * pow(channel, 1 / 2.4) - 0.055;
+        return 1.055 * pow(channel, 1 / gamma) - 0.055;
     }
 }
 
@@ -61,14 +61,14 @@ color_rgb xyzToRGB(color_xyz input_color) {
     color_rgb color;
 
     // Matrix multiplication https://en.wikipedia.org/wiki/SRGB#The_sRGB_transfer_function_.28.22gamma.22.29
-    color.r = s[0][0] * input_color.x + s[0][1] * input_color.y + s[0][2] * input_color.z;
-    color.g = s[1][0] * input_color.x + s[1][1] * input_color.y + s[1][2] * input_color.z;
-    color.b = s[2][0] * input_color.x + s[2][1] * input_color.y + s[2][2] * input_color.z;
+    color.rl = s[0][0] * input_color.x + s[0][1] * input_color.y + s[0][2] * input_color.z;
+    color.gl = s[1][0] * input_color.x + s[1][1] * input_color.y + s[1][2] * input_color.z;
+    color.bl = s[2][0] * input_color.x + s[2][1] * input_color.y + s[2][2] * input_color.z;
 
-    // Delinearlization
-    color.r = linearRGBToSRGB(color.r);
-    color.g = linearRGBToSRGB(color.g);
-    color.b = linearRGBToSRGB(color.b);
+    // Gamma correction
+    color.r = linearRGBToSRGB(color.rl, 2.4);
+    color.g = linearRGBToSRGB(color.gl, 2.4);
+    color.b = linearRGBToSRGB(color.bl, 2.4);
 
     return color;
 }

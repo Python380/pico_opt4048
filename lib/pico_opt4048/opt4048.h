@@ -140,6 +140,9 @@ struct {
 } typedef color_xyz;
 
 struct {
+    double rl;
+    double gl;
+    double bl;
     double r;
     double g;
     double b;

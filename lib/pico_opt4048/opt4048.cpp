@@ -52,7 +52,10 @@ opt4048_data OPT4048::read() {
     uint8_t channel_data[16];
     i2c_write_blocking(i2cn, addr, 0, 1, true);
     int nbytes = i2c_read_blocking(i2cn, addr, channel_data, 16, false);
+
+#ifdef DEBUG
     printf("Bytes read: %d\n", nbytes);
+#endif DEBUG
 
     uint32_t ch0 = (channel_data[0] << 24) | (channel_data[1] << 16) | (channel_data[2] << 8) | channel_data[3];
     uint32_t ch1 = (channel_data[4] << 24) | (channel_data[5] << 16) | (channel_data[6] << 8) | channel_data[7];
